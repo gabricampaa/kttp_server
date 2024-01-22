@@ -1,0 +1,1 @@
+void serveFile(int clientSocket, const char *filePath);
