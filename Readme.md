@@ -16,7 +16,7 @@ The KTTP Server is a simple http server made by me, a hobbist programmer. I like
 To install the kttp_server, run
 
 ```sh
-cd kttp_server_v0.1
+cd kttp_server
 sudo make install
 #optional 
 sudo reboot
