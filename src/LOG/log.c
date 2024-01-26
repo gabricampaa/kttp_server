@@ -19,16 +19,28 @@ char *dateTime(void) {
     char *timeString = ctime(&currentTime);
 
     // Allocate memory for a new string and copy the timeString
-    char *result = malloc(strlen(timeString) + 1);
-    strcpy(result, timeString);
+    size_t len = strlen(timeString) + 1;
+    char *result = malloc(len);
+
+    if (result != NULL) {
+        // Use strncpy to copy, limiting to the available space
+        strncpy(result, timeString, len);
+        // Ensure null-termination
+        result[len - 1] = '\0';
+    }
 
     return result;
 }
 
 void writeLog(char *clientIP) {
-
     FILE *fptr;
     char *dataEora = dateTime();
+
+    // Check if dateTime returned a valid pointer
+    if (dataEora == NULL) {
+        // Handle the error as needed
+        return;
+    }
 
     // Specify the folder and file path
     char filePath[256];
@@ -43,13 +55,11 @@ void writeLog(char *clientIP) {
         return;
     }
 
-    // Write some text to the file
-    fprintf(fptr, "%s", dataEora);
-    fprintf(fptr, " Connection from %s\n\n", clientIP);
+    // Write the log entry using snprintf to prevent buffer overflow
+    snprintf(filePath, sizeof(filePath), "%s Connection from %s\n\n", dataEora, clientIP);
+    fprintf(fptr, "%s", filePath);
 
-     fclose(fptr);
+    fclose(fptr);
     // Don't forget to free the memory allocated in dateTime
     free(dataEora);
-
-
 }
