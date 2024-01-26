@@ -1,17 +1,22 @@
+#include <limits.h>  // Aggiunto per PATH_MAX
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdlib.h>
+#include <stdlib.h>  // Aggiunto per la funzione realpath
+#include <limits.h>  // Aggiunto per la costante PATH_MAX
+
+
 #include <fcntl.h>
 #include <time.h>
 #include <signal.h>
+
 #include <arpa/inet.h>
 #include <netinet/tcp.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <sys/wait.h>
-#include <pthread.h> // Include for threads
 #include <netdb.h>
+
+
 #include "/usr/lib/kttp_server_src/LOG/log.h"
 #include "/usr/lib/kttp_server_src/CONF/userConfig.h"
 #include "constants.h"
@@ -19,68 +24,80 @@
 #include "serve_file.h"
 #include "start_server.h"
 
+
+
 char filePath[MAX_PATH_SIZE];
 
-void *handle_client(void *arg);
+
+
+
 void print_client_info(struct sockaddr_in client_addr);
 
 int main() {
-    const char *filename = "/etc/kttp_server/CONFs/userconf.ini";
+
+
+    //file di configurazione, lettura dei dati meessi dall'utente 
+    const char* filename = "/etc/kttp_server/CONFs/userconf.ini";
+
     FILE *CONF_FILE = fopen("/etc/kttp_server/CONFs/userconf.ini", "r");
-
-    if (CONF_FILE == NULL) {
+     if (CONF_FILE == NULL) {
         perror("Error opening file");
-        return 1; // Exit the program with an error code
+        return 1;  // Exit the program with an error code
     }
-
     int userConfPORT = get_PORT(CONF_FILE);
-    char *userConfPath = get_PATH(filename);
+    char* userConfPath = get_PATH(filename);
 
     fclose(CONF_FILE);
     printf("%d essere porta scelta utente\n", userConfPORT);
     printf("%s I file sono qui, invece\n", userConfPath);
 
+
+//inizializazione server con dati utente
     printf("\nVersione 1.0 del server inizializzata. Started listening on port %d \n", userConfPORT);
     int serverSocket = startServer(userConfPORT);
+
 
     while (1) {
         struct sockaddr_in clientAddress;
         socklen_t clientAddressLength = sizeof(clientAddress);
 
-        int *clientSocket = (int *)malloc(sizeof(int));
-        *clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddress, &clientAddressLength);
-
-        if (*clientSocket < 0) {
+        int clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddress, &clientAddressLength);
+        if (clientSocket < 0) {
             perror("Error accepting client connection");
-            free(clientSocket);
             continue;
         }
 
-        pthread_t tid;
-        if (pthread_create(&tid, NULL, handle_client, clientSocket) != 0) {
-            perror("Error creating thread");
-            free(clientSocket);
-            continue;
-        }
+        pid_t childPid = fork();
 
-        pthread_detach(tid); // Detach the thread to allow it to clean up after termination
+        if (childPid == 0) {
+            // Child process
+            close(serverSocket); // Close the listening socket in the child process
+            handleRequest(clientSocket, userConfPath);
+            char client_msg[4096] = "";
+
+		    int client_socket = accept(clientSocket, NULL, NULL);
+
+		    read(client_socket, client_msg, 4095);
+		    printf("%s\n", client_msg);
+            close(clientSocket);
+            exit(EXIT_SUCCESS);
+        } else if (childPid > 0) {
+            // Parent process
+            close(clientSocket);
+        } else {
+            perror("Error forking process");
+        }
         print_client_info(clientAddress);
     }
 
     close(serverSocket);
-    free(userConfPath); // Free the memory allocated in get_PATH
+    free(userConfPath);  // Free the memory allocated in get_PATH
+
 
     return 0;
 }
 
-void *handle_client(void *arg) {
-    int clientSocket = *((int *)arg);
-    free(arg); // Free the memory allocated for the argument
 
-    handleRequest(clientSocket, userConfPath);
-    close(clientSocket);
-    return NULL;
-}
 
 void print_client_info(struct sockaddr_in client_addr) {
     char client_ip[INET_ADDRSTRLEN];
