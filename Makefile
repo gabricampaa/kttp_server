@@ -49,17 +49,8 @@ create_directories: create_html_directory create_src_directory create_log_direct
 
 create_kttp_log:
 	@kttp_log_dir="/var/log/kttp_log/"
-	if [ -d "$$kttp_log_dir" ]; then \
-        echo "Directory '$$kttp_log_dir' already exists."; \
-    else \
-        sudo mkdir -p "$$kttp_log_dir"; \
-        if [ $$? -eq 0 ]; then \
-            echo "Directory '$$kttp_log_dir' created successfully."; \
-        else \
-            echo "Error: Unable to create directory '$$kttp_log_dir'."; \
-            exit 1; \
-        fi; \
-    fi
+	sudo mkdir -p "$$kttp_log_dir"; \
+        
 
 
 create_html_directory:
@@ -120,7 +111,7 @@ create_conf_directory:
 
 clean:
 	@echo "Removing directories..."
-	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /var/log/kttp_server/ /etc/kttp_server/
+	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /var/log/kttp_server/ /etc/kttp_server/ /var/log/kttp_log/
 	@sudo rm /etc/systemd/system/kttp_server.service
 	@echo "All directories removed."
 
