@@ -64,7 +64,7 @@ void serveFile(int clientSocket, const char *filePath) {
              "%s", fileSize, fileContent);
 
         write(clientSocket, response404, strlen(response404));
-        fclose(f404); //added in v0.2
+        //fclose(f404); //added in v0.2
         free(f404);
     return;
     }
