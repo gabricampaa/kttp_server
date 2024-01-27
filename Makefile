@@ -48,7 +48,7 @@ create_directories: create_html_directory create_src_directory create_log_direct
 
 
 create_kttp_log:
-	@kttp_log_dir="/var/log/kttp_log/"
+	@kttp_log_dir="/var/log/kttp_log/"; \
 	sudo mkdir -p "$$kttp_log_dir"; \
         
 
