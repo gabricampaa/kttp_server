@@ -26,14 +26,21 @@ char *dateTime(void) {
 }
 
 void writeLog(char *clientIP) {
-
-    FILE *fptr;
+FILE *fptr;
     char *dataEora = dateTime();
 
     // Specify the folder and file path
+    char logDir[256];
+    snprintf(logDir, sizeof(logDir), "/var/log/kttp_log");
+
+    // Check if the directory exists, if not, create it
+    struct stat st = {0};
+    if (stat(logDir, &st) == -1) {
+        mkdir(logDir, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+    }
+
     char filePath[256];
-    mkdir("log", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-    snprintf(filePath, sizeof(filePath), "log/connections.log");
+    snprintf(filePath, sizeof(filePath), "/var/log/kttp_log/connections.log");
 
     // Open the file in writing mode
     if ((fptr = fopen(filePath, "a")) == NULL) {
@@ -47,9 +54,7 @@ void writeLog(char *clientIP) {
     fprintf(fptr, "%s", dataEora);
     fprintf(fptr, " Connection from %s\n\n", clientIP);
 
-     fclose(fptr);
+    fclose(fptr);
     // Don't forget to free the memory allocated in dateTime
     free(dataEora);
-
-
 }
