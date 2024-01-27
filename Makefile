@@ -44,10 +44,26 @@ check_gcc:
         echo "GCC is already installed."; \
     fi
 
-create_directories: create_html_directory create_src_directory create_log_directory create_conf_directory
+create_directories: create_html_directory create_src_directory create_log_directory create_conf_directory create_kttp_log
+
+
+create_kttp_log:
+	@kttp_log_dir= "/var/log/kttp_log/"
+	if [ -d "$$kttp_log_dir" ]; then \
+        echo "Directory '$$kttp_log_dir' already exists."; \
+    else \
+        sudo mkdir -p "$$kttp_log_dir"; \
+        if [ $$? -eq 0 ]; then \
+            echo "Directory '$$kttp_log_dir' created successfully."; \
+        else \
+            echo "Error: Unable to create directory '$$kttp_log_dir'."; \
+            exit 1; \
+        fi; \
+    fi
+
 
 create_html_directory:
-	@html_directory="/var/kttp_server_files/html/"; \
+	@html_directory="/var/kttp_server_files/html_docs/"; \
     if [ -d "$$html_directory" ]; then \
         echo "Directory '$$html_directory' already exists."; \
     else \
