@@ -1,4 +1,4 @@
-# The KTTP Server - v0.1 
+# The KTTP Server - v0.2
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
