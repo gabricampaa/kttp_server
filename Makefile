@@ -111,7 +111,7 @@ create_conf_directory:
 
 clean:
 	@echo "Removing directories..."
-	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /var/log/kttp_server/ /etc/kttp_server/ /var/log/kttp_log/
+	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /var/log/kttp_server/ /etc/kttp_server/ /var/log/kttp_log/ 
 	@sudo rm /etc/systemd/system/kttp_server.service
 	@echo "All directories removed."
 
@@ -122,7 +122,7 @@ moveFiles:
 	@mv "src/LOG/" "/usr/lib/kttp_server_src/"
 	@mv "src/CONF/userconf.ini" "/etc/kttp_server/CONFs/"
 	@mv "src/CONF/" "/usr/lib/kttp_server_src/"
-	@mv "html/" "/var/kttp_server_files/html_docs/"
+	@mv "html/*" "/var/kttp_server_files/html_docs/"
 
 
 compile:
