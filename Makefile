@@ -2,11 +2,11 @@
 
 .PHONY: install clean
 
-install: welcome_script check_root check_gcc create_directories properly_installed moveFiles compile serviceSetup printInfo
+install: welcome_script check_root check_gcc create_directories  moveFiles compile serviceSetup printInfo
 
 welcome_script:
 	@echo "Welcome to the installation process for the kttp_server!\n=====REMEMBER, YOU MUST BE SUDO!=====";
-	@echo "This software will create folders in the /etc, /usr and /var directories (for a complete list of what's gonna happen, check the make file with cat Makefile)."
+	@echo "This software will create folders in the /etc, /usr and /var directories (for a complete list of what's gonna happen, check the documentation)."
 	@echo "\nAre you sure you want to proceed [y/n]: "
 	@read answer; \
 	if [ "$$answer" != "y" ]; then \
@@ -14,11 +14,9 @@ welcome_script:
 		exit 1; \
 	fi
 
-properly_installed:
-	@echo "All the dirs have been properly installed"
-
 check_root:
-	@if [ $$(id -u) -ne 0 ]; then \
+    @echo "\nChecking root privileges..."
+    @if [ $$(id -u) -ne 0 ]; then \
 	        @echo "You must be root to run this target. Please use sudo." >&2; \
 	        exit 1; \
 	    fi
@@ -44,70 +42,45 @@ check_gcc:
         echo "GCC is already installed."; \
     fi
 
-create_directories: create_html_directory create_src_directory create_log_directory create_conf_directory create_kttp_log
+
+LOG_DIR = /var/log/kttp_log/
+HTML_DIR = /var/kttp_server_files/html_docs/
+SRC_DIR = /usr/lib/kttp_server_src/
+LOG_SERVER_DIR = /var/log/kttp_server/
+CONF_DIR = /etc/kttp_server/CONFs/
 
 
 create_kttp_log:
-	@kttp_log_dir="/var/log/kttp_log/"; \
-	sudo mkdir -p "$$kttp_log_dir"; \
-        
+    @sudo mkdir -p "$(LOG_DIR)"|| { echo "Error: Unable to create directory '$(LOG_DIR)'."; exit 1; }
 
 
 create_html_directory:
-	@html_directory="/var/kttp_server_files/html_docs/"; \
-    if [ -d "$$html_directory" ]; then \
-        echo "Directory '$$html_directory' already exists."; \
-    else \
-        sudo mkdir -p "$$html_directory"; \
-        if [ $$? -eq 0 ]; then \
-            echo "Directory '$$html_directory' created successfully."; \
-        else \
-            echo "Error: Unable to create directory '$$html_directory'."; \
-            exit 1; \
-        fi; \
-    fi
+    @echo "Creating HTML directory..."
+    @sudo mkdir -p "$(HTML_DIR)" || { echo "Error: Unable to create directory '$(HTML_DIR)'."; exit 1; }
+    @echo "Directory '$(HTML_DIR)' created successfully."
+
 
 create_src_directory:
-	@src_directory="/usr/lib/kttp_server_src/"; \
-    if [ -d "$$src_directory" ]; then \
-        echo "Directory '$$src_directory' already exists."; \
-    else \
-        sudo mkdir -p "$$src_directory"; \
-        if [ $$? -eq 0 ]; then \
-            echo "Directory '$$src_directory' created successfully."; \
-        else \
-            echo "Error: Unable to create directory '$$src_directory'."; \
-            exit 1; \
-        fi; \
-    fi
+    @echo "Creating source directory..."
+    @sudo mkdir -p "$(SRC_DIR)" || { echo "Error: Unable to create directory '$(SRC_DIR)'."; exit 1; }
+    @echo "Directory '$(SRC_DIR)' created successfully."
+
 
 create_log_directory:
-	@log_directory="/var/log/kttp_server/"; \
-    if [ -d "$$log_directory" ]; then \
-        echo "Directory '$$log_directory' already exists."; \
-    else \
-        sudo mkdir -p "$$log_directory"; \
-        if [ $$? -eq 0 ]; then \
-            echo "Directory '$$log_directory' created successfully."; \
-        else \
-            echo "Error: Unable to create directory '$$log_directory'."; \
-            exit 1; \
-        fi; \
-    fi
+    @echo "Creating log server directory..."
+    @sudo mkdir -p "$(LOG_SERVER_DIR)" || { echo "Error: Unable to create directory '$(LOG_SERVER_DIR)'."; exit 1; }
+    @echo "Directory '$(LOG_SERVER_DIR)' created successfully."
+
 
 create_conf_directory:
-	@conf_directory="/etc/kttp_server/CONFs/"; \
-    if [ -d "$$conf_directory" ]; then \
-        echo "Directory '$$conf_directory' already exists."; \
-    else \
-        sudo mkdir -p "$$conf_directory"; \
-        if [ $$? -eq 0 ]; then \
-            echo "Directory '$$conf_directory' created successfully."; \
-        else \
-            echo "Error: Unable to create directory '$$conf_directory'."; \
-            exit 1; \
-        fi; \
-    fi
+    @echo "Creating configuration directory..."
+    @sudo mkdir -p "$(CONF_DIR)" || { echo "Error: Unable to create directory '$(CONF_DIR)'."; exit 1; }
+    @echo "Directory '$(CONF_DIR)' created successfully."
+
+
+create_directories: create_kttp_log create_html_directory create_src_directory create_log_directory create_conf_directory
+    @echo "All directories created successfully."
+
 
 clean:
 	@echo "Removing directories..."
@@ -133,17 +106,18 @@ compile:
 	sudo "./compila"
 
 serviceSetup:
-	@mv "service_setup/kttp_server.service" "/etc/systemd/system/"
-	@sudo systemctl daemon-reload
-	@sudo systemctl start kttp_server.service
-	@sudo systemctl enable kttp_server.service
+    @echo "Setting up the seervice..."
+    @mv "service_setup/kttp_server.service" "/etc/systemd/system/"
+    @sudo systemctl daemon-reload
+    @sudo systemctl start kttp_server.service
+    @sudo systemctl enable kttp_server.service
 
-ip_address=$(hostname -I)
+ip_address := $(shell curl -s https://ifconfig.me)
 
 printInfo:
-	@echo "\n\n\n\n\nThe service is up and running. Visit $$ip_address to see the result!\n"
+	@echo "\n\n\n\n\nThe service is up and running. Visit $(ip_address) to see the result!\n"
 	@echo "===== PLEASE NOTE =====\n"
-	@echo "The service is running as sudo on port 80. Read the documentation for all the info..."
+	@echo "The service is running as sudo on port 80. Read the documentation for all the info.\n\n\n\n\n"
 
 
 uninstall: check_root clean unistall_comand
