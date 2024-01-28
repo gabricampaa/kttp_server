@@ -122,7 +122,7 @@ moveFiles:
 	@mv "src/LOG/" "/usr/lib/kttp_server_src/"
 	@mv "src/CONF/userconf.ini" "/etc/kttp_server/CONFs/"
 	@mv "src/CONF/" "/usr/lib/kttp_server_src/"
-	@mv "html/*" "/var/kttp_server_files/html_docs/"
+	@mv "html/" "/var/kttp_server_files/html_docs/"
 	@mv "/var/kttp_server_files/html_docs/html/" "/var/kttp_server_files/html_docs/"
 
 
