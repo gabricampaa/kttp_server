@@ -35,8 +35,7 @@ void handleRequest(int clientSocket, const char* baseDir) {
 
 //std response,aka landing on index.html
     if(strcmp(httpRequest.path, "/")==0){
-        //serveFile(clientSocket, "/home/ubuntu/SEMIFEF/kttp_server/html/index.html");
-       const char *str1 = "/var/kttp_server_files/html_docs/index.html";
+        const char *str1 = "/var/kttp_server_files/html_docs/index.html";
         size_t totalLength = strlen(baseDir) + strlen(str1) + 1; // +1 for the null terminator
         char *concatenated = (char *)malloc(totalLength);
         
@@ -49,6 +48,7 @@ void handleRequest(int clientSocket, const char* baseDir) {
     strncat(concatenated, str1, totalLength - strlen(baseDir) - 1);
 
     // Use the concatenated string as needed
+    serveFile(clientSocket, concatenated);
 
     // Don't forget to free the allocated memory
     free(concatenated);
