@@ -39,7 +39,7 @@ void handleRequest(int clientSocket, const char* baseDir) {
         
 
         // Serve the file using the concatenated path
-        serveFile(clientSocket, concatenated);
+        serveFile(clientSocket, str1);
 
         // Don't forget to free the allocated memory
 
