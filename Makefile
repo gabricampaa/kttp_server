@@ -55,31 +55,31 @@ create_kttp_log:
 
 
 create_html_directory:
-    @echo "Creating HTML directory..."
-    @sudo mkdir -p "$(HTML_DIR)" || { echo "Error: Unable to create directory '$(HTML_DIR)'."; exit 1; }
-    @echo "Directory '$(HTML_DIR)' created successfully."
+	@echo "Creating HTML directory..."
+	@sudo mkdir -p "$(HTML_DIR)" || { echo "Error: Unable to create directory '$(HTML_DIR)'."; exit 1; }
+	@echo "Directory '$(HTML_DIR)' created successfully."
 
 
 create_src_directory:
-    @echo "Creating source directory..."
-    @sudo mkdir -p "$(SRC_DIR)" || { echo "Error: Unable to create directory '$(SRC_DIR)'."; exit 1; }
-    @echo "Directory '$(SRC_DIR)' created successfully."
+	@echo "Creating source directory..."
+	@sudo mkdir -p "$(SRC_DIR)" || { echo "Error: Unable to create directory '$(SRC_DIR)'."; exit 1; }
+	@echo "Directory '$(SRC_DIR)' created successfully."
 
 
 create_log_directory:
-    @echo "Creating log server directory..."
-    @sudo mkdir -p "$(LOG_SERVER_DIR)" || { echo "Error: Unable to create directory '$(LOG_SERVER_DIR)'."; exit 1; }
-    @echo "Directory '$(LOG_SERVER_DIR)' created successfully."
+	@echo "Creating log server directory..."
+	@sudo mkdir -p "$(LOG_SERVER_DIR)" || { echo "Error: Unable to create directory '$(LOG_SERVER_DIR)'."; exit 1; }
+	@echo "Directory '$(LOG_SERVER_DIR)' created successfully."
 
 
 create_conf_directory:
-    @echo "Creating configuration directory..."
-    @sudo mkdir -p "$(CONF_DIR)" || { echo "Error: Unable to create directory '$(CONF_DIR)'."; exit 1; }
-    @echo "Directory '$(CONF_DIR)' created successfully."
+	@echo "Creating configuration directory..."
+	@sudo mkdir -p "$(CONF_DIR)" || { echo "Error: Unable to create directory '$(CONF_DIR)'."; exit 1; }
+	@echo "Directory '$(CONF_DIR)' created successfully."
 
 
 create_directories: create_kttp_log create_html_directory create_src_directory create_log_directory create_conf_directory
-    @echo "All directories created successfully."
+	@echo "All directories created successfully."
 
 
 clean:
@@ -106,11 +106,11 @@ compile:
 	sudo "./compila"
 
 serviceSetup:
-    @echo "Setting up the seervice..."
-    @mv "service_setup/kttp_server.service" "/etc/systemd/system/"
-    @sudo systemctl daemon-reload
-    @sudo systemctl start kttp_server.service
-    @sudo systemctl enable kttp_server.service
+	@echo "Setting up the seervice..."
+	@mv "service_setup/kttp_server.service" "/etc/systemd/system/"
+	@sudo systemctl daemon-reload
+	@sudo systemctl start kttp_server.service
+	@sudo systemctl enable kttp_server.service
 
 ip_address := $(shell curl -s https://ifconfig.me)
 
