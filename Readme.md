@@ -16,6 +16,7 @@ The KTTP Server is a simple http server made by me, a hobbist programmer. I like
 To install the kttp_server, run
 
 ```sh
+git clone https://github.com/gabricampaa/kttp_server.git
 cd kttp_server
 sudo make install
 #optional 
@@ -27,7 +28,7 @@ Now if you go and visit the public ip of your machine, you should see the index 
 ## Uninstall
 To uninstall the kttp_server
 ```sh
-cd kttp_server_v0.1
+cd kttp_server
 sudo make uninstall
 ```
 
