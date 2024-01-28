@@ -35,27 +35,17 @@ void handleRequest(int clientSocket, const char* baseDir) {
 
 //std response,aka landing on index.html
     if(strcmp(httpRequest.path, "/")==0){
-        const char *str1 = "/var/kttp_server_files/html_docs/index.html";
+          const char *str1 = "/var/kttp_server_files/html_docs/index.html";
         size_t totalLength = strlen(baseDir) + strlen(str1) + 1; // +1 for the null terminator
         char *concatenated = (char *)malloc(totalLength);
-        
-    if (concatenated != NULL) {
-    // Copy the base directory
-    strncpy(concatenated, baseDir, totalLength);
-    concatenated[totalLength - 1] = '\0'; // Ensure null-termination
 
-    // Concatenate the file name using strncat
-    strncat(concatenated, str1, totalLength - strlen(baseDir) - 1);
+        strcpy(concatenated, baseDir);
 
-    // Use the concatenated string as needed
-    serveFile(clientSocket, concatenated);
+    // Concatenate the file name
+        strcat(concatenated, str1);
 
-    // Don't forget to free the allocated memory
-    free(concatenated);
-    } else {
-    // Handle memory allocation error
-    perror("Error allocating memory for concatenated path");
-    }
+        // Print or use the concatenated string
+        //printf("\nConcat = %s\n", concatenated);
 
         // Serve the file using the concatenated path
         serveFile(clientSocket, concatenated);
