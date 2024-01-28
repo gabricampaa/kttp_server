@@ -46,7 +46,7 @@ check_gcc:
 LOG_DIR = /var/log/kttp_log/
 HTML_DIR = /var/kttp_server_files/html_docs/
 SRC_DIR = /usr/lib/kttp_server_src/
-LOG_SERVER_DIR = /var/log/kttp_server/
+LOG_SERVER_DIR = /var/log/kttp_server/ #this is superfluous 
 CONF_DIR = /etc/kttp_server/CONFs/
 
 
