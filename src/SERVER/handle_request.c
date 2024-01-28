@@ -29,31 +29,14 @@ void handleRequest(int clientSocket, const char* baseDir) {
 
     printf("Received request: Method=%s, Path=%s\n\n", httpRequest.method, httpRequest.path);
 
-    // Construct the full file path by combining the base directory and the requested path
+    // Constructing the full file path by combining the base directory and the requested path
     char filePath[256];
     snprintf(filePath, sizeof(filePath), "%s%s", baseDir, httpRequest.path);
 
-//std response,aka landing on index.html
+    //std response,aka landing on index.html
     if(strcmp(httpRequest.path, "/")==0){
-        //serveFile(clientSocket, "/home/ubuntu/SEMIFEF/kttp_server/html/index.html");
-       const char *str1 = "/var/kttp_server_files/html_docs/index.html";
-        size_t totalLength = strlen(baseDir) + strlen(str1) + 1; // +1 for the null terminator
-        char *concatenated = (char *)malloc(totalLength);
-    
-        strcpy(concatenated, baseDir);
-
-    // Concatenate the file name
-        strcat(concatenated, str1);
-
-        // Print or use the concatenated string
-        //printf("\nConcat = %s\n", concatenated);
-
-        // Serve the file using the concatenated path
-        serveFile(clientSocket, concatenated);
-
-        // Don't forget to free the allocated memory
-        free(concatenated);
-
+          const char *str1 = "/var/kttp_server_files/html_docs/index.html";
+          serveFile(clientSocket, str1);
         }   
         
          // Handle the request and send the response
