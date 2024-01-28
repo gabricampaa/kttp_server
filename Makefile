@@ -15,11 +15,11 @@ welcome_script:
 	fi
 
 check_root:
-    @echo "\nChecking root privileges..."
-    @if [ $$(id -u) -ne 0 ]; then \
-	        @echo "You must be root to run this target. Please use sudo." >&2; \
+	@echo "Checking root privileges..."
+	@if [ $$(id -u) -ne 0 ]; then \
+		@echo "You must be root to run this target. Please use sudo." >&2; \
 	        exit 1; \
-	    fi
+	fi
 
 check_gcc:
 	@if ! command -v gcc >/dev/null 2>&1; then \
