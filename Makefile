@@ -141,7 +141,7 @@ serviceSetup:
 ip_address=$(hostname -I)
 
 printInfo:
-	@echo "The service is up and runnings. Visit $$ip_address to see the result!\n"
+	@echo "\n\n\n\n\nThe service is up and running. Visit $$ip_address to see the result!\n"
 	@echo "===== PLEASE NOTE =====\n"
 	@echo "The service is running as sudo on port 80. Read the documentation for all the info..."
 
