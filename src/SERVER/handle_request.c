@@ -29,20 +29,14 @@ void handleRequest(int clientSocket, const char* baseDir) {
 
     printf("Received request: Method=%s, Path=%s\n\n", httpRequest.method, httpRequest.path);
 
-    // Construct the full file path by combining the base directory and the requested path
+    // Constructing the full file path by combining the base directory and the requested path
     char filePath[256];
     snprintf(filePath, sizeof(filePath), "%s%s", baseDir, httpRequest.path);
 
-//std response,aka landing on index.html
+    //std response,aka landing on index.html
     if(strcmp(httpRequest.path, "/")==0){
           const char *str1 = "/var/kttp_server_files/html_docs/index.html";
-        
-
-        // Serve the file using the concatenated path
-        serveFile(clientSocket, str1);
-
-        // Don't forget to free the allocated memory
-
+          serveFile(clientSocket, str1);
         }   
         
          // Handle the request and send the response
