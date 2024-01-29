@@ -1,7 +1,5 @@
 # The KTTP Server - v0.2
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=alpha)](https://travis-ci.org/joemccann/dillinger)
-[![Build Status] (alpha)
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
 
