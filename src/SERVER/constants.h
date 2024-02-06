@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define MAX_REQUEST_SIZE 2048
+#define MAX_REQUEST_SIZE 4096
 #define MAX_RESPONSE_SIZE 2048
 
 
