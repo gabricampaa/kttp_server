@@ -70,13 +70,13 @@ create_conf_directory:
 	@echo "Directory '$(CONF_DIR)' created successfully."
 
 
-create_directories: create_kttp_log create_html_directory create_src_directory create_log_directory create_conf_directory
+create_directories: create_kttp_log create_html_directory create_src_directory create_conf_directory
 	@echo "All directories created successfully."
 
 
 clean:
 	@echo "Removing directories..."
-	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /var/log/kttp_server/ /etc/kttp_server/ /var/log/kttp_log/ 
+	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /etc/kttp_server/ /var/log/kttp_log/ 
 	@sudo rm /etc/systemd/system/kttp_server.service
 	@echo "All directories removed."
 
