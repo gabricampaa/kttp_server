@@ -46,7 +46,6 @@ check_gcc:
 LOG_DIR = /var/log/kttp_log/
 HTML_DIR = /var/kttp_server_files/html_docs/
 SRC_DIR = /usr/lib/kttp_server_src/
-LOG_SERVER_DIR = /var/log/kttp_server/ #this is superfluous 
 CONF_DIR = /etc/kttp_server/CONFs/
 
 
@@ -64,13 +63,6 @@ create_src_directory:
 	@echo "Creating source directory..."
 	@sudo mkdir -p "$(SRC_DIR)" || { echo "Error: Unable to create directory '$(SRC_DIR)'."; exit 1; }
 	@echo "Directory '$(SRC_DIR)' created successfully."
-
-
-create_log_directory:
-	@echo "Creating log server directory..."
-	@sudo mkdir -p "$(LOG_SERVER_DIR)" || { echo "Error: Unable to create directory '$(LOG_SERVER_DIR)'."; exit 1; }
-	@echo "Directory '$(LOG_SERVER_DIR)' created successfully."
-
 
 create_conf_directory:
 	@echo "Creating configuration directory..."
