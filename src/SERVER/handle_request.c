@@ -25,13 +25,13 @@ void handleRequest(int clientSocket, const char* baseDir) {
     printf("\n%s\n", requestBuffer);
     HttpRequest httpRequest;
     sscanf(requestBuffer, "%s %s", httpRequest.method, httpRequest.path);
-    writeLog(requestBuffer);
 
     printf("Received request: Method=%s, Path=%s\n\n", httpRequest.method, httpRequest.path);
 
     // Constructing the full file path by combining the base directory and the requested path
     char filePath[256];
     snprintf(filePath, sizeof(filePath), "%s%s", baseDir, httpRequest.path);
+    writeLog(requestBuffer);
 
     //std response,aka landing on index.html
     if(strcmp(httpRequest.path, "/")==0){
