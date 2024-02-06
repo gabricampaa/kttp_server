@@ -1,4 +1,13 @@
-# The KTTP Server - v0.2
+# The KTTP Server - v0.3
+
+Adding:
+
+- see issues
+- ssupport for js, php and so on
+- BETTER LOGGIN
+
+
+
 
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
