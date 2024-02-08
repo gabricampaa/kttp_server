@@ -42,7 +42,12 @@ void handleRequest(int clientSocket, const char* baseDir) {
          // Handle the request and send the response
     if (strcmp(httpRequest.method, "GET") == 0) {
         serveFile(clientSocket, filePath);
-    } else {
+    } else if(strcmp(httpRequest.method, "HEAD") == 0){
+
+        char headResponse[] = "HTTP/1.1 200 OK\r\n\r\nContent-Type:html\r\n\r\nSup m8!";
+        write(clientSocket, headResponse, sizeof(headResponse) - 1);
+        
+    }else {
         char notImplementedResponse[] = "HTTP/1.1 501 Not Implemented\r\n\r\nMethod not implemented.";
         write(clientSocket, notImplementedResponse, sizeof(notImplementedResponse) - 1);
     }
