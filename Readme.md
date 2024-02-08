@@ -15,6 +15,7 @@ The KTTP Server is a simple http server made by me, a hobbist programmer. I like
 ## Current featurees
 
 - Supports GET requests for static pages
+- Supports HEAD requests
 - Supports Multiple connections
 
 
