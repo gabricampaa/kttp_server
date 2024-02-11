@@ -59,26 +59,3 @@ FILE *fptr;
     free(dataEora);
 }
 
-
-
-
-void logStatus(char *textToWrite) {
-    FILE *fptr;
-    char filePath[256];
-
-    // Construct file path
-    if (snprintf(filePath, sizeof(filePath), "/var/log/kttp_log/connections.log") >= sizeof(filePath)) {
-        perror("Error: File path too long");
-        return;
-    }
-
-    // Open the file in append mode
-    if ((fptr = fopen(filePath, "a")) == NULL) {
-        perror("Error opening log file");
-        return;
-    }
-
-    // Write data to the log file
-    fprintf(fptr, "%s\n", textToWrite); // Use %s format specifier
-    fclose(fptr);
-}
