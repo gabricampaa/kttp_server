@@ -14,6 +14,8 @@ void serveFile(int clientSocket, const char *filePath) {
                                      "Location: /ttt.html\r\n"
                                      "\r\n";
         write(clientSocket, redirectionResponse, sizeof(redirectionResponse) - 1);
+              logStatus("Index handled succesfully!\n");
+
         return;
     }
 
@@ -48,6 +50,8 @@ void serveFile(int clientSocket, const char *filePath) {
         perror("Error allocating memory for file content");
         fclose(f404);
         //free(f404);
+            logStatus("404 response handled\n");
+
         return;
         }
 
@@ -96,4 +100,6 @@ void serveFile(int clientSocket, const char *filePath) {
     write(clientSocket, response, strlen(response));
 
     free(fileContent);
+            logStatus("File requested handled succesfully!\n");
+
 }
