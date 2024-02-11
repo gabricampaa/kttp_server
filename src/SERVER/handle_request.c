@@ -11,7 +11,7 @@
 #include "serve_file.h"
 #include "/usr/lib/kttp_server_src/LOG/log.h"
 
-
+//le personalizzazioni
 void handleRequest(int clientSocket, const char* baseDir) {
 
     printf("=========================================\n");
@@ -37,6 +37,8 @@ void handleRequest(int clientSocket, const char* baseDir) {
     if(strcmp(httpRequest.path, "/")==0){
           const char *str1 = "/var/kttp_server_files/html_docs/index.html";
           serveFile(clientSocket, str1);
+        logStatus("Index handled succesfully!\n");
+
         }   
         
          // Handle the request and send the response
@@ -46,6 +48,7 @@ void handleRequest(int clientSocket, const char* baseDir) {
 
         char headResponse[] = "HTTP/1.1 200 OK\r\n\r\nContent-Type:html\r\n\r\nSup m8!";
         write(clientSocket, headResponse, sizeof(headResponse) - 1);
+        logStatus("Request handled succesfully!\n");
         
     }else {
         char notImplementedResponse[] = "HTTP/1.1 501 Not Implemented\r\n\r\nMethod not implemented.";
