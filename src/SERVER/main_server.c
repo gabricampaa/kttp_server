@@ -55,7 +55,6 @@ int main() {
 //inizializazione server con dati utente
     printf("\nVersione 1.0 del server inizializzata. Started listening on port %d \n", userConfPORT);
     int serverSocket = startServer(userConfPORT);
-logStatus("Server initialized.\n");
 
     while (1) {
         struct sockaddr_in clientAddress;
