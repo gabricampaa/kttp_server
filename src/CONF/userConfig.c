@@ -41,7 +41,7 @@ char* get_PATH(const char* filename) {
     while (fgets(line, sizeof(line), file) != NULL) {
         if (sscanf(line, "PATH = %[^\n]", path) == 1) {
             fclose(file);
-            char *defPath;
+            char *defPath = NULL;
             strcpy(defPath, path);
             free(path);
             //return strdup(path);  // strdup allocates memory and copies the string
