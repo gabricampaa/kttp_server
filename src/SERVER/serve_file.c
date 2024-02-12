@@ -52,6 +52,8 @@ void serveFile(int clientSocket, const char *filePath) {
         perror("Error allocating memory for file content");
         fclose(f404);
         //free(f404);
+        free(fileContent); //added in v0.3.1
+
 
         return;
         }
@@ -71,6 +73,8 @@ void serveFile(int clientSocket, const char *filePath) {
         write(clientSocket, response404, strlen(response404));
         fclose(f404); //added in v0.2
        //free(f404);
+            free(fileContent);
+
 
     return;
     }
@@ -99,9 +103,9 @@ void serveFile(int clientSocket, const char *filePath) {
              "\r\n"
              "%s", fileSize, fileContent);
 
-    write(clientSocket, response, strlen(response));
+            write(clientSocket, response, strlen(response));
 
-    free(fileContent);
+            free(fileContent);
             logStatus("File requested handled succesfully!\n");
 
 }
