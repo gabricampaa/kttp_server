@@ -69,7 +69,7 @@ void logStatus(char *textToWrite) {
     char filePath[256];
 
     // Construct file path
-    if (snprintf(filePath, sizeof(filePath), "/var/log/kttp_log/connections.log") >= sizeof(filePath)) {
+    if (snprintf(filePath, sizeof(filePath), "/var/log/kttp_log/connections.log") >= (int)sizeof(filePath)) {
         perror("Error: File path too long");
         return;
     }
