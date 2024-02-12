@@ -40,6 +40,7 @@ void serveFile(int clientSocket, const char *filePath) {
             perror("Error opening 404.html");
             return;
         }
+        logStatus("404 response handled\n");
 
         fseek(f404, 0, SEEK_END);
         long fileSize = ftell(f404);
@@ -61,7 +62,7 @@ void serveFile(int clientSocket, const char *filePath) {
 
         char response404[MAX_RESPONSE_SIZE];
         snprintf(response404, sizeof(response404),
-             "HTTP/1.1 404 Not Found\r\n" ////////era qui 200 OK
+             "HTTP/1.1 404 Not Found\r\n" 
              "Content-Type: text/html\r\n"
              "Content-Length: %ld\r\n"
              "\r\n"
@@ -69,8 +70,7 @@ void serveFile(int clientSocket, const char *filePath) {
 
         write(clientSocket, response404, strlen(response404));
         fclose(f404); //added in v0.2
-       // free(f404);
-                    logStatus("404 response handled\n");
+       //free(f404);
 
     return;
     }
