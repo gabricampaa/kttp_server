@@ -46,7 +46,6 @@ check_gcc:
 LOG_DIR = /var/log/kttp_log/
 HTML_DIR = /var/kttp_server_files/html_docs/
 SRC_DIR = /usr/lib/kttp_server_src/
-LOG_SERVER_DIR = /var/log/kttp_server/ #this is superfluous 
 CONF_DIR = /etc/kttp_server/CONFs/
 
 
@@ -65,26 +64,19 @@ create_src_directory:
 	@sudo mkdir -p "$(SRC_DIR)" || { echo "Error: Unable to create directory '$(SRC_DIR)'."; exit 1; }
 	@echo "Directory '$(SRC_DIR)' created successfully."
 
-
-create_log_directory:
-	@echo "Creating log server directory..."
-	@sudo mkdir -p "$(LOG_SERVER_DIR)" || { echo "Error: Unable to create directory '$(LOG_SERVER_DIR)'."; exit 1; }
-	@echo "Directory '$(LOG_SERVER_DIR)' created successfully."
-
-
 create_conf_directory:
 	@echo "Creating configuration directory..."
 	@sudo mkdir -p "$(CONF_DIR)" || { echo "Error: Unable to create directory '$(CONF_DIR)'."; exit 1; }
 	@echo "Directory '$(CONF_DIR)' created successfully."
 
 
-create_directories: create_kttp_log create_html_directory create_src_directory create_log_directory create_conf_directory
+create_directories: create_kttp_log create_html_directory create_src_directory create_conf_directory
 	@echo "All directories created successfully."
 
 
 clean:
 	@echo "Removing directories..."
-	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /var/log/kttp_server/ /etc/kttp_server/ /var/log/kttp_log/ 
+	@sudo rm -rf /var/kttp_server_files/ /usr/lib/kttp_server_src/ /etc/kttp_server/ /var/log/kttp_log/ 
 	@sudo rm /etc/systemd/system/kttp_server.service
 	@echo "All directories removed."
 

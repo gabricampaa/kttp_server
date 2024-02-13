@@ -1,4 +1,6 @@
-# The KTTP Server - v0.2
+# The KTTP Server - v0.3
+
+
 
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
@@ -6,6 +8,7 @@ The KTTP Server is a simple http server made by me, a hobbist programmer. I like
 ## Current featurees
 
 - Supports GET requests for static pages
+- Supports HEAD requests
 - Supports Multiple connections
 
 
@@ -37,12 +40,11 @@ sudo make uninstall
 
 - This is a list of all the folders that will be created:
   ```sh
-    /usr/lib/kttp_server_src/ #src files and logs (in future they will be under /var/log)
+    /usr/lib/kttp_server_src/ #src files and the executables 
     /etc/kttp_server/CONFs/  #config files
     /var/kttp_server_files/html_docs/ #default html docs folder
+    /var/log/kttp_log #contains the log
 
-    #PLEASE NOTE
-    /usr/lib/kttp_server_src/ #this also contains the executables
     ```
 - Under the folder 
     ```sh
@@ -62,3 +64,9 @@ sudo make uninstall
 MIT
 
 **Free Software, Hell Yeah!**
+
+
+## What changed in v0.3   
+- better logging
+- memory leaking fixed (kinda)
+- see issues

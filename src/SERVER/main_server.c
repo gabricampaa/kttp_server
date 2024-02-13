@@ -56,7 +56,6 @@ int main() {
     printf("\nVersione 1.0 del server inizializzata. Started listening on port %d \n", userConfPORT);
     int serverSocket = startServer(userConfPORT);
 
-
     while (1) {
         struct sockaddr_in clientAddress;
         socklen_t clientAddressLength = sizeof(clientAddress);
@@ -74,11 +73,11 @@ int main() {
             close(serverSocket); // Close the listening socket in the child process
             handleRequest(clientSocket, userConfPath);
             char client_msg[4096] = "";
-
 		    int client_socket = accept(clientSocket, NULL, NULL);
 
 		    read(client_socket, client_msg, 4095);
 		    printf("%s\n", client_msg);
+
             close(clientSocket);
             exit(EXIT_SUCCESS);
         } else if (childPid > 0) {
@@ -106,3 +105,5 @@ void print_client_info(struct sockaddr_in client_addr) {
     printf("Connected client port: %d\n", ntohs(client_addr.sin_port));
     writeLog(client_ip);
 }
+
+//kttp serveer puoi eliminarlo

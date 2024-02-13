@@ -5,15 +5,18 @@
 
 #include "constants.h"
 #include "/usr/lib/kttp_server_src/CONF/userConfig.h"
+#include "/usr/lib/kttp_server_src/LOG/log.h"
+
 
 void serveFile(int clientSocket, const char *filePath) {
     FILE *file = fopen(filePath, "r");
   if (strcmp(filePath, "/") == 0) {
-        // Redirect to ttt.html
         char redirectionResponse[] = "HTTP/1.1 302 Found\r\n"
-                                     "Location: /ttt.html\r\n"
+                                     "Location: /index.html\r\n"
                                      "\r\n";
         write(clientSocket, redirectionResponse, sizeof(redirectionResponse) - 1);
+            logStatus("Index handled succesfully!\n");
+
         return;
     }
 
@@ -37,6 +40,7 @@ void serveFile(int clientSocket, const char *filePath) {
             perror("Error opening 404.html");
             return;
         }
+        logStatus("404 response handled\n");
 
         fseek(f404, 0, SEEK_END);
         long fileSize = ftell(f404);
@@ -48,6 +52,9 @@ void serveFile(int clientSocket, const char *filePath) {
         perror("Error allocating memory for file content");
         fclose(f404);
         //free(f404);
+        free(fileContent); //added in v0.3.1
+
+
         return;
         }
 
@@ -57,7 +64,7 @@ void serveFile(int clientSocket, const char *filePath) {
 
         char response404[MAX_RESPONSE_SIZE];
         snprintf(response404, sizeof(response404),
-             "HTTP/1.1 404 Not Found\r\n" ////////era qui 200 OK
+             "HTTP/1.1 404 Not Found\r\n" 
              "Content-Type: text/html\r\n"
              "Content-Length: %ld\r\n"
              "\r\n"
@@ -65,7 +72,10 @@ void serveFile(int clientSocket, const char *filePath) {
 
         write(clientSocket, response404, strlen(response404));
         fclose(f404); //added in v0.2
-       // free(f404);
+       //free(f404);
+            free(fileContent);
+
+
     return;
     }
 
@@ -93,7 +103,9 @@ void serveFile(int clientSocket, const char *filePath) {
              "\r\n"
              "%s", fileSize, fileContent);
 
-    write(clientSocket, response, strlen(response));
+            write(clientSocket, response, strlen(response));
 
-    free(fileContent);
+            free(fileContent);
+            logStatus("File requested handled succesfully!\n");
+
 }

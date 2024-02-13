@@ -20,13 +20,13 @@ char *dateTime(void) {
 
     // Allocate memory for a new string and copy the timeString
     char *result = malloc(strlen(timeString) + 1);
+    
     strcpy(result, timeString);
 
     return result;
 }
-
-void writeLog(char *clientIP) {
-FILE *fptr;
+void writeLog(const char *clientIP) {
+    FILE *fptr;
     char *dataEora = dateTime();
 
     // Specify the folder and file path
@@ -36,26 +36,52 @@ FILE *fptr;
     // Check if the directory exists, if not, create it
     struct stat st = {0};
     if (stat(logDir, &st) == -1) {
-        mkdir(logDir, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+        if (mkdir(logDir, S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH) == -1) {
+            perror("Error creating log directory");
+            free(dataEora);  // Free memory allocated in dateTime
+            return;
+        }
     }
 
     char filePath[256];
     snprintf(filePath, sizeof(filePath), "/var/log/kttp_log/connections.log");
 
-    // Open the file in writing mode
+    // Open the file in append mode
     if ((fptr = fopen(filePath, "a")) == NULL) {
-        perror("Error opening file");
-        // Handle the error as needed
-        free(dataEora);  // Don't forget to free the memory allocated in dateTime
+        perror("Error opening log file");
+        free(dataEora);  // Free memory allocated in dateTime
         return;
     }
 
-    // Write some text to the file
-    fprintf(fptr, "%s", dataEora);
-    fprintf(fptr, " Connection from %s\n\n", clientIP);
+    // Write data to the log file
+    fprintf(fptr, "Client IP: %s\n", clientIP);
+    fprintf(fptr, "Timestamp: %s", dataEora);
+    fprintf(fptr, "\n\n=====END OF CONNECTION=====\n\n\n");
 
     fclose(fptr);
-    // Don't forget to free the memory allocated in dateTime
-    free(dataEora);
+    free(dataEora);  // Free memory allocated in dateTime
+}
+
+
+
+void logStatus(char *textToWrite) {
+    FILE *fptr;
+    char filePath[256];
+
+    // Construct file path
+    if (snprintf(filePath, sizeof(filePath), "/var/log/kttp_log/connections.log") >= (int)sizeof(filePath)) {
+        perror("Error: File path too long");
+        return;
+    }
+
+    // Open the file in append mode
+    if ((fptr = fopen(filePath, "a")) == NULL) {
+        perror("Error opening log file");
+        return;
+    }
+
+    // Write data to the log file
+    fprintf(fptr, "%s\n", textToWrite); // Use %s format specifier
+    fclose(fptr);
 }
 
