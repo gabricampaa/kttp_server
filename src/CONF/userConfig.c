@@ -36,14 +36,15 @@ char* get_PATH(const char* filename) {
     }
 
     char line[MAX_PATH_SIZE];
-    char* path = (char*)malloc(MAX_PATH_SIZE);
-
+    //char* path = (char*)malloc(MAX_PATH_SIZE); //adding this down in v0.3.1
+                                                                char path[MAX_PATH_SIZE];
     while (fgets(line, sizeof(line), file) != NULL) {
         if (sscanf(line, "PATH = %[^\n]", path) == 1) {
             fclose(file);
            
             //free(path);
-            return strdup(path);  // strdup allocates memory and copies the string
+            //return strdup(path);  // strdup allocates memory and copies the string
+            return path
         }
     }
 
