@@ -5,7 +5,7 @@
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
 
-## Current featurees
+## Current features
 
 - Supports GET requests for static pages
 - Supports HEAD requests
