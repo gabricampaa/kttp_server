@@ -40,12 +40,11 @@ sudo make uninstall
 
 - This is a list of all the folders that will be created:
   ```sh
-    /usr/lib/kttp_server_src/ #src files and logs (in future they will be under /var/log)
+    /usr/lib/kttp_server_src/ #src files and the executables 
     /etc/kttp_server/CONFs/  #config files
     /var/kttp_server_files/html_docs/ #default html docs folder
+    /var/log/kttp_log #contains the log
 
-    #PLEASE NOTE
-    /usr/lib/kttp_server_src/ #this also contains the executables
     ```
 - Under the folder 
     ```sh
