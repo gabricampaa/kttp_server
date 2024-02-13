@@ -1,12 +1,5 @@
 # The KTTP Server - v0.3
 
-Adding:
-
-- see issues
-- ssupport for js, php and so on
-- BETTER LOGGIN
-
-
 
 
 
@@ -72,3 +65,9 @@ sudo make uninstall
 MIT
 
 **Free Software, Hell Yeah!**
+
+
+## What changed in v0.3   
+- better logging
+- memory leaking fixed (kinda)
+- see issues
