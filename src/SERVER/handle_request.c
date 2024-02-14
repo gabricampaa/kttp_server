@@ -1,3 +1,15 @@
+/*
+*
+*
+*
+* handle_request.c - Copyright by gabricampaa, 2024
+*
+*
+*
+*
+*/
+	
+
 #include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
