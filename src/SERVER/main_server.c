@@ -1,3 +1,19 @@
+/*
+*
+*
+*
+* main_server.c - Copyright by gabricampaa, 2024
+*
+*
+*
+*
+*/
+	
+	
+	
+	
+	
+	
 #include <limits.h>  // Aggiunto per PATH_MAX
 #include <stdio.h>
 #include <string.h>
