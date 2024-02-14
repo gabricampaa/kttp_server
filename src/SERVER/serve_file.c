@@ -1,3 +1,17 @@
+/*
+*
+*
+*
+* server_file.c - Copyright by gabricampaa, 2024
+*
+*
+*
+*
+*/
+	
+	
+
+
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
