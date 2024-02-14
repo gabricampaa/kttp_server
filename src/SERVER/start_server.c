@@ -1,3 +1,19 @@
+/*
+*
+*
+*
+* start_server.c - Copyright by gabricampaa, 2024
+*
+*
+*
+*
+*/
+	
+	
+
+
+
+
 #include <netinet/in.h>
 #include <stdio.h>
 #include <sys/socket.h>
