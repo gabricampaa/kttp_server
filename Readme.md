@@ -1,6 +1,6 @@
 # The KTTP Server - v0.4
 
-![Build Status](https://github.com/gabricampaa/kttp_server/actions/workflows/main.yml/badge.svg)
+![Build Status](https://github.com/gabricampaa/kttp_server/actions/workflows/c-cpp.yml/badge.svg)
 
 
 
