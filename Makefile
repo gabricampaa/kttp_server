@@ -90,6 +90,7 @@ moveFiles:
 	@mv "html/index.html" "/var/kttp_server_files/html_docs/"
 	@mv "html/404.html" "/var/kttp_server_files/html_docs/"
 	@mv "html/ttt.html" "/var/kttp_server_files/html_docs/"
+	@cp "Makefile" "/usr/lib/kttp_server_src/"
 
 
 compile:
@@ -110,6 +111,7 @@ printInfo:
 	@echo "\n\n\n\n\nThe service is up and running. Visit $(ip_address) to see the result!\n"
 	@echo "===== PLEASE NOTE =====\n"
 	@echo "The service is running as sudo on port 80. Read the documentation for all the info.\n\n\n\n\n"
+	@echo "You can now delete the kttp_server folder\n"
 
 
 uninstall: check_root clean unistall_comand
