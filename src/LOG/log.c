@@ -21,10 +21,15 @@ char *dateTime(void) {
     // Allocate memory for a new string and copy the timeString
     char *result = malloc(strlen(timeString) + 1);
     
-    strcpy(result, timeString);
+    // Copy the time string, excluding the newline character
+    strncpy(result, timeString, strlen(timeString));
+    result[strlen(timeString) - 1] = '\0';  // Null-terminate the string
+
 
     return result;
 }
+
+
 void writeLog(const char *clientIP) {
     FILE *fptr;
     char *dataEora = dateTime();

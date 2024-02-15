@@ -1,3 +1,4 @@
+
 /*
 *
 *
@@ -24,19 +25,19 @@
 
 void serveFile(int clientSocket, const char *filePath) {
     FILE *file = fopen(filePath, "r");
+    char *fileContent = NULL;
   if (strcmp(filePath, "/") == 0) {
         char redirectionResponse[] = "HTTP/1.1 302 Found\r\n"
                                      "Location: /index.html\r\n"
                                      "\r\n";
-        write(clientSocket, redirectionResponse, sizeof(redirectionResponse) - 1);
+            write(clientSocket, redirectionResponse, sizeof(redirectionResponse) - 1);
             logStatus("Index handled succesfully!\n");
 
         return;
     }
 
-
+    // File not found, serve 404 page
     if (file == NULL) {
-        // File not found, serve 404 page
         char full404Path[MAX_PATH_SIZE];
         const char* filename = "/etc/kttp_server/CONFs/userconf.ini";
         char* userConfPath = get_PATH(filename);
@@ -59,22 +60,21 @@ void serveFile(int clientSocket, const char *filePath) {
         fseek(f404, 0, SEEK_END);
         long fileSize = ftell(f404);
         fseek(f404, 0, SEEK_SET);
-
+        
+        
         char *fileContent = (char *)malloc(fileSize + 1);  // +1 for null terminator
-        if (fileContent == NULL)
-        {
-        perror("Error allocating memory for file content");
-        fclose(f404);
-        //free(f404);
-        free(fileContent); //added in v0.3.1
-
-
-        return;
-        }
+    
 
         fread(fileContent, 1, fileSize, f404);
         fileContent[fileSize] = '\0';  // Null-terminate the content
         fclose(f404);
+
+        if (fileContent == NULL){
+        perror("Error allocating memory for file content");
+        fclose(f404);
+        free(fileContent); 
+        return;
+        }
 
         char response404[MAX_RESPONSE_SIZE];
         snprintf(response404, sizeof(response404),
@@ -97,18 +97,17 @@ void serveFile(int clientSocket, const char *filePath) {
     fseek(file, 0, SEEK_END);
     long fileSize = ftell(file);
     fseek(file, 0, SEEK_SET);
+    fileContent = (char *)malloc(fileSize + 1);  // +1 for null terminator
 
-    char *fileContent = (char *)malloc(fileSize + 1);  // +1 for null terminator
-    if (fileContent == NULL) {
-        perror("Error allocating memory for file content");
-        fclose(file);
-        return;
-    }
 
     fread(fileContent, 1, fileSize, file);
     fileContent[fileSize] = '\0';  // Null-terminate the content
     fclose(file);
-
+    if (fileContent == NULL) {
+        perror("Error allocating memory for file content lol");
+        fclose(file);
+        return;
+    }
     char response[MAX_RESPONSE_SIZE];
     snprintf(response, sizeof(response),
              "HTTP/1.1 200 OK\r\n"
