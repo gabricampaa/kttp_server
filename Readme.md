@@ -1,8 +1,5 @@
 # The KTTP Server - v0.4
 
-![Build Status](https://github.com/gabricampaa/kttp_server/actions/workflows/c-cpp.yml/badge.svg)
-
-
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
 
