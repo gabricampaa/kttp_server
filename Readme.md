@@ -1,4 +1,4 @@
-# The KTTP Server - v0.4
+# The KTTP Server - v0.5 WIP
 
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
