@@ -75,8 +75,12 @@ int main() {
             continue;
         }
 
-        pthread_detach(thread);
+        //pthread_detach(thread); EDITED
         print_client_info(clientAddress);
+
+         if (pthread_join(thread, NULL) != 0) {
+        perror("Error joining thread");
+    }
     }
 
     close(serverSocket);
