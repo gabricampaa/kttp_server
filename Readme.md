@@ -64,7 +64,7 @@ MIT
 **Free Software, Hell Yeah!**
 
 
-## What changed in v0.3   
+## What changed in v0.4   
 - better logging
 - memory leaking fixed (kinda)
 - see issues
