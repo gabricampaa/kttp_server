@@ -4,9 +4,6 @@
 
 #define MAX_PATH_SIZE 2000
 
-//test
-
-
 int get_PORT(FILE *file) {
     char line[256];
     int port = -1;  // Declare and initialize the 'port' variable

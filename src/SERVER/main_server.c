@@ -1,15 +1,28 @@
+/*
+*
+*
+*
+* main_server.c - Copyright by gabricampaa, 2024
+*
+*
+*
+*
+*/
+	
+	
+	
+	
+	
+	
 #include <limits.h>  // Aggiunto per PATH_MAX
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>  // Aggiunto per la funzione realpath
 #include <limits.h>  // Aggiunto per la costante PATH_MAX
-
-
 #include <fcntl.h>
 #include <time.h>
 #include <signal.h>
-
 #include <arpa/inet.h>
 #include <netinet/tcp.h>
 #include <sys/socket.h>
@@ -34,11 +47,8 @@ char filePath[MAX_PATH_SIZE];
 void print_client_info(struct sockaddr_in client_addr);
 
 int main() {
-
-
-    //file di configurazione, lettura dei dati meessi dall'utente 
+    //reading user configurations and storing data into variables
     const char* filename = "/etc/kttp_server/CONFs/userconf.ini";
-
     FILE *CONF_FILE = fopen("/etc/kttp_server/CONFs/userconf.ini", "r");
      if (CONF_FILE == NULL) {
         perror("Error opening file");
@@ -46,16 +56,20 @@ int main() {
     }
     int userConfPORT = get_PORT(CONF_FILE);
     char* userConfPath = get_PATH(filename);
-
     fclose(CONF_FILE);
+
+
     printf("%d essere porta scelta utente\n", userConfPORT);
     printf("%s I file sono qui, invece\n", userConfPath);
 
 
-//inizializazione server con dati utente
+    //initializing server with user configs
     printf("\nVersione 1.0 del server inizializzata. Started listening on port %d \n", userConfPORT);
     int serverSocket = startServer(userConfPORT);
 
+
+
+    //continuous loop
     while (1) {
         struct sockaddr_in clientAddress;
         socklen_t clientAddressLength = sizeof(clientAddress);
@@ -68,17 +82,15 @@ int main() {
 
         pid_t childPid = fork();
 
-        if (childPid == 0) {
-            // Child process
+        if (childPid == 0) {// Child process
             close(serverSocket); // Close the listening socket in the child process
             handleRequest(clientSocket, userConfPath);
+            close(clientSocket);
             char client_msg[4096] = "";
 		    int client_socket = accept(clientSocket, NULL, NULL);
 
 		    read(client_socket, client_msg, 4095);
 		    printf("%s\n", client_msg);
-
-            close(clientSocket);
             exit(EXIT_SUCCESS);
         } else if (childPid > 0) {
             // Parent process
@@ -87,7 +99,8 @@ int main() {
             perror("Error forking process");
         }
         print_client_info(clientAddress);
-    }
+    
+  }
 
     close(serverSocket);
     free(userConfPath);  // Free the memory allocated in get_PATH

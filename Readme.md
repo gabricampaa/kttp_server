@@ -1,6 +1,4 @@
-# The KTTP Server - v0.3
-
-
+# The KTTP Server - v0.4
 
 
 The KTTP Server is a simple http server made by me, a hobbist programmer. I like C and i like networking, so... here we are!
@@ -30,7 +28,7 @@ Now if you go and visit the public ip of your machine, you should see the index 
 ## Uninstall
 To uninstall the kttp_server
 ```sh
-cd kttp_server
+cd /usr/lib/kttp_server_src/
 sudo make uninstall
 ```
 
