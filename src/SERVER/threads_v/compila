@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -pedantic -g -pthread -o server_threads main_server.c handle_request.c serve_file.c start_server.c /usr/lib/kttp_server_src/LOG/log.c /usr/lib/kttp_server_src/CONF/userConfig.c
