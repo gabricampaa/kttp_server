@@ -47,7 +47,7 @@ LOG_DIR = /var/log/kttp_log/
 HTML_DIR = /var/kttp_server_files/html_docs/
 SRC_DIR = /usr/lib/kttp_server_src/
 CONF_DIR = /etc/kttp_server/CONFs/
-
+CUSTOMIZER_FILE = customize_kttp.sh
 
 create_kttp_log:
 	@sudo mkdir -p "$(LOG_DIR)"|| { echo "Error: Unable to create directory '$(LOG_DIR)'."; exit 1; }
@@ -91,6 +91,7 @@ moveFiles:
 	@mv "html/404.html" "/var/kttp_server_files/html_docs/"
 	@mv "html/ttt.html" "/var/kttp_server_files/html_docs/"
 	@cp "Makefile" "/usr/lib/kttp_server_src/"
+	@cp %(CUSTOMIZER_FILE) $(CONF_DIR)
 
 
 compile:
@@ -112,7 +113,7 @@ printInfo:
 	@echo "===== PLEASE NOTE =====\n"
 	@echo "The service is running as sudo on port 80. Read the documentation for all the info.\n\n\n\n\n"
 	@echo "You can now delete the kttp_server folder\n"
-	@echo "to configure. also, check run "installer.sh in $(CONF_DIR) to cusomize shit"
+	@echo "to configure. also, check run $(CUSTOMIZER_FILE) in $(CONF_DIR) to cusomize shit"
 
 uninstall: check_root clean unistall_comand
 
