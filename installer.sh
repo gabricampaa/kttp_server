@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#to cos
 CONFIG_FILE="settings.conf"
 
 # Funzione per acquisire il numero di porta
