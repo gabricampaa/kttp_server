@@ -91,7 +91,7 @@ moveFiles:
 	@mv "html/404.html" "/var/kttp_server_files/html_docs/"
 	@mv "html/ttt.html" "/var/kttp_server_files/html_docs/"
 	@cp "Makefile" "/usr/lib/kttp_server_src/"
-	@cp %(CUSTOMIZER_FILE) $(CONF_DIR)
+	@cp $(CUSTOMIZER_FILE) $(CONF_DIR)
 
 
 compile:
