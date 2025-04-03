@@ -112,7 +112,7 @@ printInfo:
 	@echo "===== PLEASE NOTE =====\n"
 	@echo "The service is running as sudo on port 80. Read the documentation for all the info.\n\n\n\n\n"
 	@echo "You can now delete the kttp_server folder\n"
-
+	@echo "to configure. also, check run "installer.sh in $(CONF_DIR) to cusomize shit"
 
 uninstall: check_root clean unistall_comand
 
