@@ -57,6 +57,11 @@ sudo make uninstall
     ```
     you can choose on what port you want the server to be running and which one is the default folder for html docs. DO NOT MODIFY what's left of the '=' sign, things might go wrong.
 
+  I'm planning to add a dialog-based configuartion by running
+    ```sh
+    ./customize_kttp.sh
+    ```
+
 ## License
 
 MIT
