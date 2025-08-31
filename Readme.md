@@ -6,7 +6,8 @@ ab -n 1000 -c 100 http://yourserver:port/
 ```
 is **OK!**
 
-sudo ss -tulnp | grep :80
+sudo ss -tulnp | grep :80 
+oppure
 sudo tcpdump -i any port 80 -w traffico80.pcap
 
 -----
